@@ -10,6 +10,7 @@ Renderer.layers = new Array();
 Renderer.setDimensions = function(w, h) {
 	Renderer.width = w;
 	Renderer.height = h;
+	UI.setScreenDimensions(w*Renderer.pixelsPerUnit, h*Renderer.pixelsPerUnit);
 };
 
 Renderer.addLayer = function(key) {

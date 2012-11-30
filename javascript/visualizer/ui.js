@@ -8,6 +8,7 @@ UI.elements = new Object();
 $(document).ready(function(){
 	
 	UI.elements.canvases = $("#visualizer-canvases");
+	UI.elements.visualAlert = $('div#visualizer-visual-alert');
 
 	UI.elements.timebar = $( "#visualizer-time-bar" ).slider({
 		range: "min",
@@ -34,18 +35,29 @@ $(document).ready(function(){
 
 	UI.elements.playpauseButton = $('#visualizer-play-pause').click(function() {
 		Time.invertPlaying();
+		if(Time.playing) {
+			$(this).removeClass("visualizer-play").addClass('visualizer-pause');
+			UI.visualAlert("play");
+		}
+		else {
+			$(this).removeClass("visualizer-pause").addClass('visualizer-play');
+			UI.visualAlert("pause");
+		}
 	});
 
 	UI.elements.nextturnButton = $('#visualizer-next-turn').click(function() {
 		Time.nextTurn();
+		UI.visualAlert("nextturn");
 	});
 
 	UI.elements.prevturnButton = $('#visualizer-prev-turn').click(function() {
 		Time.prevTurn();
+		UI.visualAlert("prevturn");
 	});
 
 	UI.elements.stopButton = $('#visualizer-stop').click(function() {
 		Time.stop();
+		UI.visualAlert("stop");
 	});
 
 	UI.elements.fullscreen = $('#visualizer-fullscreen').click(function() {
@@ -83,6 +95,16 @@ $(document).ready(function(){
 	});
 });
 
+UI.visualAlert = function(s) {
+	UI.elements.visualAlert
+		.removeClass()
+		.addClass("visualizer-ui-" + s)
+		.hide()
+		.show()
+		.fadeOut(1000);
+
+} 
+
 UI.setTurns = function(turns) {
 	UI.elements.timebar.slider('option', 'max', turns);
 	UI.elements.timebar.slider('value', UI.elements.timebar.val());
@@ -112,3 +134,9 @@ UI.exitFullscreen = function() {
 		layer.css("width", layer.attr("width") + "px").css("height", layer.attr("height") + "px");
 	});
 }
+
+UI.setScreenDimensions = function(w, h) {
+	UI.elements.visualAlert
+		.css("width", w + "px")
+		.css("height", h + "px");
+};
