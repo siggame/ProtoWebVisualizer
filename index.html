@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SIG-GAME Revamp HTML5 Visualizer</title>
+		<meta charset="UTF-8" />
+
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+		<link rel="stylesheet" href="./styles/visualizer.css" />
+
+		<!-- Javascript Libraries -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+		<!--<script type="text/javascript" src="./javascript/library/swfobject.js"></script>
+		<script type="text/javascript" src="./javascript/library/jquery.FileReader.min.js"></script>-->
+		
+		<script src="./javascript/globals.js"></script>
+		<script src="./javascript/visualizer/renderer.js"></script>
+		<script src="./javascript/visualizer/renderables.js"></script>
+		<script src="./javascript/visualizer/ui.js"></script>
+		<script src="./javascript/visualizer/loader.js"></script>
+		<script src="./javascript/visualizer/input.js"></script>
+		<script src="./javascript/visualizer/time.js"></script>
+		<script src="./javascript/visualizer/plugins/galapagos.js"></script>
+		<script src="./javascript/visualizer/main.js"></script>
+	</head>
+	<body>
+		<div id="state-info"></div>
+		<div id="debug-info"></div>
+
+		<div id="visualizer">
+			<div id="visualizer-loader">
+				<input type="file" id="visualizer-loader-files" name="files[]" multiple />
+				<output id="visualizer-loader-list"></output>
+			</div>
+			<br />
+			<div id="visualizer-canvases"></div>
+			
+			<input type="text" id="visualizer-current-time" />
+			<div id="visualizer-time-bar"></div>
+			<div id="visualizer-speed-bar"></div>
+			<button id="visualizer-play-pause">Play/Pause</button>
+			<button id="visualizer-prev-turn">Prev</button>
+			<button id="visualizer-stop">Stop</button>
+			<button id="visualizer-next-turn">Next</button>
+			<button id="visualizer-fullscreen">Fullscreen</button>
+		</div>
+	</body>
+</html>

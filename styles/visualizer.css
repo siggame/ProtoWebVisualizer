@@ -1,0 +1,9 @@
+div#visualizer-canvases {
+	position: relative;
+}
+
+canvas.visualizer-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
