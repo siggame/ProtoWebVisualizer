@@ -97,11 +97,12 @@ $(document).ready(function(){
 
 UI.visualAlert = function(s) {
 	UI.elements.visualAlert
+		.stop(true, true)
+		.hide()
 		.removeClass()
 		.addClass("visualizer-ui-" + s)
-		.hide()
 		.show()
-		.fadeOut(1000);
+		.fadeOut(500);
 
 } 
 

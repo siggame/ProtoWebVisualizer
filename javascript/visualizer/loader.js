@@ -16,25 +16,34 @@ $(document).ready(function() {
 			alert("Filereader callback");
 		}
 	});*/
-
+	
 	if (window.File && window.FileReader && window.FileList && window.Blob) {
   		document.getElementById('visualizer-loader-files').addEventListener('change', handleFiles, false);
 	} else {
 		Log('The File APIs are not fully supported in this browser.');
 	}
+
+	// Check to see if there is a URL parameter for the remote gamelog
+	var remoteGamelog = getURLParameter("gamelog");
+	if(remoteGamelog != null) {
+		Log("url param gamelog: " + remoteGamelog);
+		Loader.getRemoteGamelog(remoteGamelog);
+	}
 });
 
-Loader.getGamelog = function(file, successCallback) {
+Loader.getRemoteGamelog = function(url) {
+	url  = "http://" + url;
+
 	$.ajax({
-		url: 'http://sig-game-dev.jacobfischer.me/gamelogs/' + file,
+		url: url,
 		dataType: "json",
 		success: function(data) {
 			Gamelog = data;
-			Log("success getting gamelog: " + file);
-			successCallback();
+			Log("success getting gamelog at: " + url);
+			gamelogLoaded();
 		},
 		error: function() {
-			Log("Error getting gamelog: " + file);
+			Log("Error getting gamelog at: " + url);
 		}
 	});
 }

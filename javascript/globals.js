@@ -12,3 +12,9 @@
 function Log(text) {
 	$("#debug-info").html( $("#debug-info").html() + text + "<br/>" ); 
 }
+
+function getURLParameter(name) {
+    return decodeURIComponent(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
