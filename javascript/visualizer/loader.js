@@ -4,7 +4,7 @@
 var Loader = function() {};
 
 var Gamelog = null;
-
+var OMG;
 $(document).ready(function() {
 
 	/*$("element(s)").fileReader( {
@@ -25,6 +25,7 @@ $(document).ready(function() {
 
 	// Check to see if there is a URL parameter for the remote gamelog
 	var remoteGamelog = getURLParameter("gamelog");
+	OMG = remoteGamelog;
 	if(remoteGamelog != null) {
 		Log("url param gamelog: " + remoteGamelog);
 		Loader.getRemoteGamelog(remoteGamelog);
