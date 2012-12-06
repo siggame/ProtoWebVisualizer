@@ -9,6 +9,7 @@ $(document).ready(function(){
 	
 	UI.elements.canvases = $("#visualizer-canvases");
 	UI.elements.visualAlert = $('div#visualizer-visual-alert');
+	UI.elements.screen = $('div#visualizer-screen');
 
 	UI.elements.timebar = $( "#visualizer-time-bar" ).slider({
 		range: "min",
@@ -120,21 +121,70 @@ UI.goFullscreen = function() {
 	var fullscreenWidth = window.innerWidth;
 	var fullscreenHeight = window.innerHeight;
 
-	UI.elements.canvases.css("position","absolute").css("left", "0").css("top", "0");
+	UI.elements.screen
+		.css("position","absolute")
+		.css("left", "0")
+		.css("top", "0")
+		.css("width", fullscreenWidth+"px")
+		.css("height", fullscreenHeight+"px")
+		.addClass("fullscreen");
 
 	$("canvas.visualizer-layer").each(function() {
-		$(this).css("width", fullscreenWidth + "px").css("height", fullscreenHeight + "px");
+		UI.elementGoFullscreen($(this));
 	});
+
+	UI.elementGoFullscreen(UI.elements.visualAlert);
+
+	UI.elements.visualAlert.focus();
 }
+
+UI.elementGoFullscreen = function(element) {
+	var fullscreenWidth = window.innerWidth;
+	var fullscreenHeight = window.innerHeight;
+
+	var scale = (fullscreenWidth / Renderer.pxWidth());
+	if (Renderer.pxHeight() * scale > fullscreenHeight) {
+		scale = fullscreenHeight / Renderer.pxHeight();
+ 	}
+
+	element
+		.css("width", Renderer.pxWidth()*scale + "px")
+		.css("height", Renderer.pxHeight()*scale + "px")
+		.css("top", (fullscreenHeight - (Renderer.pxHeight()*scale))/2 + "px")
+		.css("left", (fullscreenWidth - (Renderer.pxWidth()*scale))/2 + "px");
+};
 
 UI.exitFullscreen = function() {
-	UI.elements.canvases.css("position","relative");
+	UI.elements.screen
+		.css("position","relative")
+		.css("width", "auto")
+		.css("height", "auto")
+		.removeClass("fullscreen");
 
 	$("canvas.visualizer-layer").each(function() {
-		var layer = $(this);
-		layer.css("width", layer.attr("width") + "px").css("height", layer.attr("height") + "px");
+		UI.elementExitFullscreen($(this));
 	});
+
+	UI.elementExitFullscreen(UI.elements.visualAlert);
 }
+
+UI.elementExitFullscreen = function(element) {
+	var w, h;
+	if(element.attr("width") == undefined) {
+		w = $("canvas.visualizer-layer").attr("width");
+		h = $("canvas.visualizer-layer").attr("height");
+	}
+	else {
+		w = element.attr("width");
+		h = element.attr("height");
+	}
+
+	element
+		.css("width", w + "px")
+		.css("height", h + "px")
+		.css("top", "0px")
+		.css("left", "0px");
+};
 
 UI.setScreenDimensions = function(w, h) {
 	UI.elements.visualAlert

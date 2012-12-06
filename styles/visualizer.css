@@ -1,5 +1,11 @@
 div#visualizer-screen {
 	position: relative;
+	z-index: 1000;
+}
+
+div#visualizer-screen.fullscreen {
+	position: relative;
+	background: rgba(0,0,0,0.95);
 }
 
 div#visualizer-canvases {
@@ -18,14 +24,14 @@ div#visualizer-visual-alert {
 	height: 256px;
 	width: 256px;
 	border: 0;
-	z-index: 9001;
+	z-index: 3000;
 }
 
 canvas.visualizer-layer {
 	position: absolute;
 	left: 0;
 	top: 0;
-	z-index: 1000;
+	z-index: 2000;
 }
 
 button.visualizer-ui-button {

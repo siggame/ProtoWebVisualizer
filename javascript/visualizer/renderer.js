@@ -13,6 +13,14 @@ Renderer.setDimensions = function(w, h) {
 	UI.setScreenDimensions(w*Renderer.pixelsPerUnit, h*Renderer.pixelsPerUnit);
 };
 
+Renderer.pxWidth = function() {
+	return Renderer.width * Renderer.pixelsPerUnit;
+};
+
+Renderer.pxHeight = function() {
+	return Renderer.height * Renderer.pixelsPerUnit;
+};
+
 Renderer.addLayer = function(key) {
 	Renderer.layers[key] = new Layer( UI.elements.canvases, key, Renderer.width, Renderer.height );
 };
