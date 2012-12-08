@@ -32,9 +32,9 @@ function gamelogLoaded() {
 	plugin.initialize(Gamelog, Renderer);
 	plugin.parse(Gamelog);
 
-	UI.setTurns(Gamelog.turns.length);
+	UI.finishLoading();
 	Time.turns = Gamelog.turns.length;
-	Time.play();
+	UI.elements.playpauseButton.click();
 }
 
 

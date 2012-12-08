@@ -10,6 +10,8 @@ $(document).ready(function(){
 	UI.elements.canvases = $("#visualizer-canvases");
 	UI.elements.visualAlert = $('div#visualizer-visual-alert');
 	UI.elements.screen = $('div#visualizer-screen');
+	UI.elements.currentTime = $('#visualizer-current-time');
+	UI.elements.maxTurns = $('#visualizer-max-turns');
 
 	UI.elements.timebar = $( "#visualizer-time-bar" ).slider({
 		range: "min",
@@ -19,7 +21,6 @@ $(document).ready(function(){
 		step: 0.001,
 		slide: function( event, ui ) {
 			Time.set(ui.value);
-			$( "#visualizer-current-time" ).val( "Turn: " + ui.value );
 		}
 	});
 
@@ -107,14 +108,9 @@ UI.visualAlert = function(s) {
 
 } 
 
-UI.setTurns = function(turns) {
-	UI.elements.timebar.slider('option', 'max', turns);
-	UI.elements.timebar.slider('value', UI.elements.timebar.val());
-}
-
 UI.updateTime = function(time) {
 	UI.elements.timebar.slider('value', time);
-	$( "#visualizer-current-time" ).val( "Turn: " + time );
+	UI.elements.currentTime.html( Math.round(time*100)/100);
 }
 
 UI.goFullscreen = function() {
@@ -198,4 +194,10 @@ UI.setScreenDimensions = function(w, h) {
 
 UI.startLoading = function() {
 	UI.elements.screen.css("background-image", "url('../images/ui/loading.gif')")
+}
+
+UI.finishLoading = function() {
+	UI.elements.maxTurns.html("/ " + Gamelog.turns.length);
+	UI.elements.timebar.slider('option', 'max', Gamelog.turns.length);
+	UI.elements.timebar.slider('value', UI.elements.timebar.val());
 }

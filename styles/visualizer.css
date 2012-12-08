@@ -1,3 +1,7 @@
+html, body {
+	font-family: sans-serif;
+}
+
 div#visualizer {
 	width: 960px;
 }
@@ -45,50 +49,99 @@ canvas.visualizer-layer {
 	z-index: 2000;
 }
 
+#visualizer-speed-icon,
 button.visualizer-ui-button {
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-size: 3em auto;
-	height: 4em;
-	width: 4em;
-	border: 0.25em solid #000;
+	background-color: transparent;
+	height: 2em;
+	width: 2em;
 	padding: 0;
 	margin: 0;
+	border: 0;
 }
 
-button#visualizer-play-pause.visualizer-play,
+button.visualizer-ui-button {
+	transition: background-color .3s ease-in-out;
+   -moz-transition: background-color .3s ease-in-out;
+   -webkit-transition: background-color .3s ease-in-out;
+}
+
+button.visualizer-ui-button:hover,
+button.visualizer-ui-button:focus,
+button.visualizer-ui-button:active {
+	background-color: #FB4509;
+}
+
+button#visualizer-play-pause {
+	margin: 0 1em 0 0;
+}
+
+button#visualizer-play-pause.visualizer-play {
+	background-image: url('../images/ui/play-small.png');
+}
+
 .visualizer-ui-play {
-	background-image: url('../images/ui/play.png');
+	background-image: url('../images/ui/256-play.png');
 }
 
-button#visualizer-play-pause.visualizer-pause,
+button#visualizer-play-pause.visualizer-pause {
+	background-image: url('../images/ui/pause-small.png');
+}
+
 .visualizer-ui-pause {
-	background-image: url('../images/ui/pause.png');
+	background-image: url('../images/ui/256-pause.png');
 }
 
-button#visualizer-prev-turn,
+button#visualizer-prev-turn {
+	background-image: url('../images/ui/backward-small.png');
+}
+
 .visualizer-ui-prevturn {
-	background-image: url('../images/ui/backward.png');
+	background-image: url('../images/ui/256-backward.png');
 }
 
-button#visualizer-next-turn,
+button#visualizer-next-turn {
+	background-image: url('../images/ui/forward-small.png');
+}
+
 .visualizer-ui-nextturn {
-	background-image: url('../images/ui/forward.png');
+	background-image: url('../images/ui/256-forward.png');
 }
 
-button#visualizer-stop,
+button#visualizer-stop {
+	background-image: url('../images/ui/stop-small.png');
+}
+
 .visualizer-ui-stop {
-	background-image: url('../images/ui/stop.png');
+	background-image: url('../images/ui/256-stop.png');
 }
 
-button#visualizer-fullscreen,
+button#visualizer-fullscreen {
+	background-image: url('../images/ui/fullscreen-small.png');
+	margin: 0 0 0 1em;
+}
+
 .visualizer-ui-fullscreen {
-	background-image: url('../images/ui/fullscreen.png');
+	background-image: url('../images/ui/256-fullscreen.png');
+}
+
+#visualizer-speed-icon {
+	float: right;
+	background-image: url('../images/ui/speed-small.png');
+	width: 36px;
+	margin: 0 0.5em 0 0;
 }
 
 /* BEGIN: Control Bar */
 
 /*     BEGIN: Top Part */
+
+div#visualizer-controls {
+	background-color: #BF3503;
+	padding: 1em;
+	color: #fff;
+}
 
 div#visualizer-controls-top,
 div#visualizer-controls-bottom {
@@ -106,17 +159,16 @@ div#visualizer-controls-bottom * {
 	display: inline-block;
 }
 
-div#visualizer-current-time {
+div#visualizer-current-time,
+div#visualizer-max-turns {
 	float: right;
-	width: 5em;
-	top: 0;
-	right: 0;
+	width: 2em;
 }
 
 div#visualizer-time-bar-container {
 	position: absolute;
 	background: green;
-	margin: 0 6em 0 0;
+	margin: 0 4.5em 0 0;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -133,6 +185,7 @@ div#visualizer-time-bar-container div#visualizer-time-bar {
 div#visualizer-speed-bar-container {
 	float: right;
 	width: 15em;
+	padding: 0.5em 0 0 0;
 }
 
 div#visualizer-speed-bar-container div#visualizer-speed-bar {
