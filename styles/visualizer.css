@@ -1,6 +1,17 @@
+div#visualizer {
+	width: 960px;
+}
+
 div#visualizer-screen {
 	position: relative;
 	z-index: 1000;
+	width: 100%;
+	height: 400px;
+	background: #000;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 256px 256px;
+	background-image: url('../images/ui/not-loading.png');
 }
 
 div#visualizer-screen.fullscreen {
@@ -73,4 +84,61 @@ button#visualizer-stop,
 button#visualizer-fullscreen,
 .visualizer-ui-fullscreen {
 	background-image: url('../images/ui/fullscreen.png');
+}
+
+/* BEGIN: Control Bar */
+
+/*     BEGIN: Top Part */
+
+div#visualizer-controls-top,
+div#visualizer-controls-bottom {
+	display: block;
+	width: 100%;
+}
+
+div#visualizer-controls-top {
+	position: relative;
+	height: 2em;
+}
+
+div#visualizer-controls-top *,
+div#visualizer-controls-bottom * {
+	display: inline-block;
+}
+
+div#visualizer-current-time {
+	float: right;
+	width: 5em;
+	top: 0;
+	right: 0;
+}
+
+div#visualizer-time-bar-container {
+	position: absolute;
+	background: green;
+	margin: 0 6em 0 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+div#visualizer-time-bar-container div#visualizer-time-bar {
+	display: block;
+}
+
+/*     END: Top Part */
+
+/*     BEGIN: Bottom Part */
+
+div#visualizer-speed-bar-container {
+	float: right;
+	width: 15em;
+}
+
+div#visualizer-speed-bar-container div#visualizer-speed-bar {
+	width: 100%;
+}
+
+button#visualizer-fullscreen {
+	float: right;
 }

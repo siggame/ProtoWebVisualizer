@@ -190,4 +190,12 @@ UI.setScreenDimensions = function(w, h) {
 	UI.elements.visualAlert
 		.css("width", w + "px")
 		.css("height", h + "px");
+	UI.elements.screen
+		.css("width", w + "px")
+		.css("height", h + "px")
+		.css("background-image", "none");
 };
+
+UI.startLoading = function() {
+	UI.elements.screen.css("background-image", "url('../images/ui/loading.gif')")
+}

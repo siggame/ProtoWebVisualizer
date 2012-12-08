@@ -32,7 +32,12 @@ $(document).ready(function() {
 	}
 });
 
+Loader.startLoading = function() {
+	UI.startLoading();
+};
+
 Loader.getRemoteGamelog = function(url) {
+	Loader.startLoading();
 	url  = "http://" + url;
 
 	$.ajax({
@@ -50,6 +55,7 @@ Loader.getRemoteGamelog = function(url) {
 }
 
 function handleFiles(evt) {
+	Loader.startLoading();
 	var files = evt.target.files;
 
 	for (i = 0; i < files.length; i++) {
