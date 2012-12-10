@@ -63,8 +63,9 @@ button.visualizer-ui-button {
 
 button.visualizer-ui-button {
 	transition: background-color .3s ease-in-out;
-   -moz-transition: background-color .3s ease-in-out;
-   -webkit-transition: background-color .3s ease-in-out;
+	-moz-transition: background-color .3s ease-in-out;
+	-webkit-transition: background-color .3s ease-in-out;
+	margin: 0 0.25em;
 }
 
 button.visualizer-ui-button:hover,
@@ -119,7 +120,7 @@ button#visualizer-stop {
 
 button#visualizer-fullscreen {
 	background-image: url('../images/ui/fullscreen-small.png');
-	margin: 0 0 0 1em;
+	margin: 0 0 0 2em;
 }
 
 .visualizer-ui-fullscreen {
@@ -167,7 +168,6 @@ div#visualizer-max-turns {
 
 div#visualizer-time-bar-container {
 	position: absolute;
-	background: green;
 	margin: 0 4.5em 0 0;
 	top: 0;
 	left: 0;
