@@ -95,6 +95,19 @@ $(document).ready(function(){
 				break;
 		}
 	});
+
+	UI.elements.optionsDialog = $('#visualizer-options-dialog').dialog({
+		modal: true,
+		autoOpen: false,
+		show: "fade",
+		hide: "fade",
+	});
+
+	UI.elements.optionsButton = $("#visualizer-options").click(function() {
+		UI.elements.optionsDialog.dialog("open");
+	});
+
+	UI.elements.optionList = $('ul#visualizer-option-list');
 });
 
 UI.visualAlert = function(s) {
@@ -201,3 +214,22 @@ UI.finishLoading = function() {
 	UI.elements.timebar.slider('option', 'max', Gamelog.turns.length);
 	UI.elements.timebar.slider('value', UI.elements.timebar.val());
 }
+
+UI.addOption = function(option) {
+	var optionElement = $("<li>");
+	// key without whitespace
+	var keyless = option.key.replace(/\s+/g, '');
+
+	switch(option.type) {
+		case "checkbox":
+			var checkbox = $('<input type="checkbox" id="visualizer-option-' + keyless + '"' + (option.value?' checked':'') + ' />').change(function() {
+				option.value = this.checked;
+			});
+			var label = '<label for="visualizer-option-' + keyless + '">' + option.key + '</label>';
+
+			optionElement.append(checkbox).append(label);
+			break;
+	}
+
+	UI.elements.optionList.append(optionElement);
+};

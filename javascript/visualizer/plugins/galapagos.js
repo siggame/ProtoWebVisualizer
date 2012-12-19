@@ -81,24 +81,26 @@ $(document).ready(function() {
 			}
 		}
 
+		this.initialDraw = function(renderer) {
+			// draw all the background tiles
+			for(var x = 0; x < renderer.width; x++) {
+				for(var y = 0; y < renderer.height; y++) {
+					renderer.drawTexture("grass", "background", x, y, 1, 1);
+				}
+			}
+		}
+
+
+		// Called around 60 times a second. Used for drawing!
+		//    time: has a t and turn variable. t represents 0.0 - 1.0 in the current turn, turn is the turn number to render
+		//    renderer: the object that can render graphics to the layers of the visualizer
 		this.draw = function(renderer, time) {
 			// Do drawing here
-
-			// draw the background once
-			if(!this.drawnBackground) {
-				for(var x = 0; x < renderer.width; x++) {
-					for(var y = 0; y < renderer.height; y++) {
-						renderer.drawTexture("grass", "background", x, y, 1, 1);
-					}
-				}
-
-				this.drawnBackground = true;
-			}
 
 			// draw creatures based on the renderablesCreatures
 			renderer.clearLayer("units");
 			
-			var creatures = this.renderableCreatures.at(time.turn, time.t);
+			var creatures = plugin.renderableCreatures.at(time.turn, time.t);
 			for(var i in creatures) {
 				var creature = creatures[i];
 
@@ -106,7 +108,7 @@ $(document).ready(function() {
 				renderer.drawTexture("pacman", "units", creature.x, creature.y, 1, 1);
 			}
 
-			var plants = this.renderablePlants.at(time.turn, time.t);
+			var plants = plugin.renderablePlants.at(time.turn, time.t);
 			for(var p in plants) {
 				var plant = plants[p];
 

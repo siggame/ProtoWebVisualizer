@@ -16,6 +16,7 @@
 		<script src="./javascript/globals.js"></script>
 		<script src="./javascript/visualizer/renderer.js"></script>
 		<script src="./javascript/visualizer/renderables.js"></script>
+		<script src="./javascript/visualizer/options.js"></script>
 		<script src="./javascript/visualizer/ui.js"></script>
 		<script src="./javascript/visualizer/loader.js"></script>
 		<script src="./javascript/visualizer/input.js"></script>
@@ -51,6 +52,7 @@
 					<button id="visualizer-prev-turn" class="visualizer-ui-button"></button>
 					<button id="visualizer-stop" class="visualizer-ui-button"></button>
 					<button id="visualizer-next-turn" class="visualizer-ui-button"></button>
+					<button id="visualizer-options" class="visualizer-ui-button"></button>
 					
 					<button id="visualizer-fullscreen" class="visualizer-ui-button"></button>
 					<div id="visualizer-speed-bar-container">
@@ -58,6 +60,10 @@
 					</div>
 					<div id="visualizer-speed-icon" ></div>
 				</div>
+			</div>
+
+			<div id="visualizer-options-dialog" title="Options">
+				<ul id="visualizer-option-list"></ul>
 			</div>
 		</div>
 	</body>

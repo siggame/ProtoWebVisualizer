@@ -3,13 +3,27 @@ var plugin = null;
 
 $(document).ready(function() {
 	//Loader.getGamelog("2.json", initializeSystems);
+	var firstloop = true;
+
+	Options.addOption({
+		key: "Enable Something",
+		type: "checkbox",
+		value: true
+	});
 
 	// the 60 fps loop
 	(function (window) {
 		function gameLoop() {
 			if(plugin && Renderer.ready() && Gamelog != null) {
-				Time.tick(1000 /60);  // todo: measure time elapsed
-				plugin.draw(Renderer, Time);
+				if(firstloop) {
+					plugin.initialDraw(Renderer);
+					UI.elements.playpauseButton.click();
+					firstloop = false;
+				}
+				else {
+					Time.tick(1000 /60);  // todo: measure time elapsed
+					plugin.draw(Renderer, Time);
+				}
 			}
 		}
 		window.setInterval(gameLoop, 1000 / 60); // 60fps
@@ -34,7 +48,6 @@ function gamelogLoaded() {
 
 	UI.finishLoading();
 	Time.turns = Gamelog.turns.length;
-	UI.elements.playpauseButton.click();
 }
 
 

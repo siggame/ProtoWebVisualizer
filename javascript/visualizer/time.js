@@ -8,6 +8,7 @@ Time.turn = 0;
 Time.msPerTurn = 1000; // 1 sec / turn
 Time.turns = 0;
 Time.playing = false;
+Time.events = new Array();
 
 Time.tick = function(ms) {
 	if(!Time.playing) {
@@ -46,6 +47,16 @@ Time.boundsCheck = function() {
 	}
 }
 
+// adds an event to the timelime, useful for games with rounds
+Time.addEvent = function(time, tag) {
+	events.push({
+		time: time,
+		tag: tag,
+	});
+
+	Time.updateUI();
+};
+
 Time.invertPlaying = function() {
 	Time.playing = !Time.playing;
 }
@@ -80,4 +91,6 @@ Time.stop = function() {
 
 Time.updateUI = function() {
 	UI.updateTime(Time.turn + Time.t);
+
+	//UI.updateEvents()
 }
