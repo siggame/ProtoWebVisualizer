@@ -1,21 +1,17 @@
 // Galapagos Visualizer Plugin
 // Requires the visualizer core to work
+
 Visualizer.plugins["Galapagos"] = new Object();
 var plugin = Visualizer.plugins["Galapagos"];
 		
 plugin.name = "Galapagos";
 
 // Renderables for our main game objects
-plugin.renderableCreatures;
-plugin.renderablePlants;
+plugin.renderableCreatures = undefined;
+plugin.renderablePlants = undefined;
 
 plugin.initialize = function(gamelog, renderer) {
-	// initialize stuff here, good ideas:
-	// * set the dimensions of the renderer (map width and height)
-	// * add the layers you'll want in the renderer, in order
-	// * initialize your data structures
-
-	// setup the dimensions of the renderer to be 8 x 8
+	// setup the dimensions of the renderer to be mapWidth x mapHeight
 	renderer.setDimensions(gamelog.turns[0].mapWidth, gamelog.turns[0].mapHeight);
 
 	// give us 2 layers, the background and units layer
@@ -24,7 +20,6 @@ plugin.initialize = function(gamelog, renderer) {
 }
 
 plugin.parse = function(gamelog) {
-	// here you will want to iterate through the gamelog and build data structures by parsing the gamelog
 	// initialize the renderables for creatures with the template of the first creature we find
 	plugin.renderableCreatures = new Renderables(gamelog.turns[0].Creatures[0]);
 	plugin.renderablePlants = new Renderables(gamelog.turns[0].Plants[0]);
@@ -90,12 +85,12 @@ plugin.initialDraw = function(renderer) {
 //    time: has a t and turn variable. t represents 0.0 - 1.0 in the current turn, turn is the turn number to render
 //    renderer: the object that can render graphics to the layers of the visualizer
 plugin.draw = function(renderer, time) {
-	// Do drawing here
-
+	var options = this.options;
+	
 	// draw creatures based on the renderablesCreatures
 	renderer.clearLayer("units");
 	
-	var creatures = plugin.renderableCreatures.at(time.turn, time.t);
+	var creatures = this.renderableCreatures.at(time.turn, time.t);
 	for(var i in creatures) {
 		var creature = creatures[i];
 
@@ -103,7 +98,7 @@ plugin.draw = function(renderer, time) {
 		renderer.drawTexture("pacman", "units", creature.x, creature.y, 1, 1);
 	}
 
-	var plants = plugin.renderablePlants.at(time.turn, time.t);
+	var plants = this.renderablePlants.at(time.turn, time.t);
 	for(var p in plants) {
 		var plant = plants[p];
 

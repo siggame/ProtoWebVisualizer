@@ -87,6 +87,8 @@ Visualizer.loadPlugin = function(pluginName) {
 	// Load the textures for the plugin
 	Visualizer.renderer.addTextures(Visualizer.currentPlugin.textures, Visualizer.currentPlugin.name.toLowerCase());
 
+	Visualizer.addOptions(Visualizer.currentPlugin.name, Visualizer.currentPlugin.options);
+
 	Visualizer.currentPlugin.initialize(Visualizer.gamelog, Visualizer.renderer);
 	Visualizer.currentPlugin.parse(Visualizer.gamelog);
 }

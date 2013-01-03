@@ -20,6 +20,10 @@ function getURLParameter(name) {
     return r == "null" ? null : r;
 }
 
+function removeWhitespace(str) {
+  return str.replace(/\s+/g, '');
+}
+
 // emulates the $.getScript functionality, but caches and doesn't re download
 // FROM: http://themergency.com/an-alternative-to-jquerys-getscript-function/
 jQuery.loadScript = function (url, callback) {         

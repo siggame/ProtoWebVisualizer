@@ -21,7 +21,7 @@ Visualizer.ui.initialize = function(time) {
 		max: 1,
 		step: 0.001,
 		slide: function( event, ui ) {
-			time.set(Visualizer.ui.value);
+			time.set(ui.value);
 		}
 	});
 
@@ -32,7 +32,7 @@ Visualizer.ui.initialize = function(time) {
 		max: 10000,
 		step: 10,
 		slide: function( event, ui ) {
-			time.msPerTurn = 10001-Visualizer.ui.value;
+			time.msPerTurn = 10001-ui.value;
 		}
 	});
 
@@ -141,29 +141,36 @@ Visualizer.ui.goFullscreen = function() {
 		.css("height", fullscreenHeight+"px")
 		.addClass("fullscreen");
 
+	var canvasWidth = undefined;
+	var canvasHeight = undefined;
 	$("canvas.visualizer-layer").each(function() {
-		Visualizer.ui.elementGoFullscreen($(this));
+		var element = $(this);
+		if(canvasWidth == undefined && canvasHeight == undefined) {
+			canvasWidth = element.attr("width");
+			canvasHeight = element.attr("height");
+		}
+		Visualizer.ui.elementGoFullscreen(element, canvasWidth, canvasHeight);
 	});
 
-	Visualizer.ui.elementGoFullscreen(Visualizer.ui.elements.visualAlert);
+	Visualizer.ui.elementGoFullscreen(Visualizer.ui.elements.visualAlert, canvasWidth, canvasHeight);
 
 	Visualizer.ui.elements.visualAlert.focus();
 }
 
-Visualizer.ui.elementGoFullscreen = function(element) {
+Visualizer.ui.elementGoFullscreen = function(element, w, h) {
 	var fullscreenWidth = window.innerWidth;
 	var fullscreenHeight = window.innerHeight;
 
-	var scale = (fullscreenWidth / Renderer.pxWidth());
-	if (Renderer.pxHeight() * scale > fullscreenHeight) {
-		scale = fullscreenHeight / Renderer.pxHeight();
+	var scale = (fullscreenWidth / w);
+	if (h * scale > fullscreenHeight) {
+		scale = fullscreenHeight / h;
  	}
 
 	element
-		.css("width", Renderer.pxWidth()*scale + "px")
-		.css("height", Renderer.pxHeight()*scale + "px")
-		.css("top", (fullscreenHeight - (Renderer.pxHeight()*scale))/2 + "px")
-		.css("left", (fullscreenWidth - (Renderer.pxWidth()*scale))/2 + "px");
+		.css("width", w*scale + "px")
+		.css("height", h*scale + "px")
+		.css("top", (fullscreenHeight - (h*scale))/2 + "px")
+		.css("left", (fullscreenWidth - (w*scale))/2 + "px");
 };
 
 Visualizer.ui.exitFullscreen = function() {
@@ -223,24 +230,28 @@ Visualizer.ui.finishLoading = function(gamelog) {
 
 Visualizer.ui.addOptionSection = function(title) {
 	Visualizer.ui.elements.optionList.append(
-		$("<li>").append(title).append(
-			$("<ul>").attr("id", "visualizer-option-section-" + title)
-		)
+		$("<li>")
+			.append(title)
+			.append( $("<ul>")
+				.attr("id", "visualizer-option-section-" + removeWhitespace(title))
+			)
 	);
 
-	Visualizer.ui.elements.optionsListSection[title] = $("#visualizer-option-section-" + title);
+	Visualizer.ui.elements.optionsListSection[title] = $("#visualizer-option-section-" + removeWhitespace(title));
 };
 
 Visualizer.ui.addOption = function(title, option) {
 	var optionElement = $("<li>");
 	// key without whitespace
-	var keyless = option.key.replace(/\s+/g, '');
+	var keyless = removeWhitespace(option.key);
+	var titleless = removeWhitespace(title);
+	var id = "visualizer-option-" + titleless + "-" + keyless;
 
 	switch(option.type) {
 		case "checkbox":
 			var checkbox = $('<input>')
 				.attr('type',"checkbox")
-				.attr('id',"visualizer-option-" + keyless)
+				.attr('id', id)
 				.change(function() {
 					option.value = this.checked;
 				});
@@ -249,13 +260,13 @@ Visualizer.ui.addOption = function(title, option) {
 				checkbox.attr("checked", "checked");
 			}
 
-			var label = $('<label>').attr('for', "visualizer-option-" + keyless).html(option.key);
+			var label = $('<label>').attr('for', id).html(option.key);
 
 			optionElement.append(checkbox).append(label);
 			break;
 		case "select":
 			var select = $("<select>")
-				.attr('id',"visualizer-option-" + keyless)
+				.attr('id', id)
 				.change(function() {
 					option.value = $(this).val();
 				});
@@ -268,7 +279,7 @@ Visualizer.ui.addOption = function(title, option) {
 				select.append(selectOption);
 			}
 
-			var label = $('<label>').attr('for', "visualizer-option-" + keyless).html(option.key + ": ");
+			var label = $('<label>').attr('for', id).html(option.key + ": ");
 
 			optionElement.append(label).append(select);
 			break;
