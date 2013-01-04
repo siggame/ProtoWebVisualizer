@@ -1,18 +1,20 @@
 // UI
 // User Interface, basic HTML interfaces for things like player talk
 
-Visualizer.ui = new Object()
+Visualizer.ui = {};
 
-Visualizer.ui.elements = new Object();
+Visualizer.ui.elements = {};
+Visualizer.ui.events = [];
 
 Visualizer.ui.initialize = function(time) {
-	
+
 	Visualizer.ui.elements.canvases = $("#visualizer-canvases");
 	Visualizer.ui.elements.visualAlert = $('div#visualizer-visual-alert');
 	Visualizer.ui.elements.screen = $('div#visualizer-screen');
 	Visualizer.ui.elements.currentTime = $('#visualizer-current-time');
 	Visualizer.ui.elements.maxTurns = $('#visualizer-max-turns');
 	Visualizer.ui.elements.optionsListSection = new Array();
+	Visualizer.ui.elements.events = $('#visualizer-events');
 
 	Visualizer.ui.elements.timebar = $( "#visualizer-time-bar" ).slider({
 		range: "min",
@@ -97,6 +99,10 @@ Visualizer.ui.initialize = function(time) {
 		}
 	});
 
+	Visualizer.ui.turnsInGamelog = function() {
+		return time.turns;
+	};
+
 	Visualizer.ui.elements.optionsDialog = $('#visualizer-options-dialog').dialog({
 		modal: true,
 		autoOpen: false,
@@ -109,8 +115,21 @@ Visualizer.ui.initialize = function(time) {
 	});
 
 	Visualizer.ui.elements.optionList = $('ul#visualizer-option-list');
+
+	$('.visualizer-event').live('click', function() {
+		var index = parseInt($(this).attr('id').substring('visualizer-event-'.length)) - 1;
+		Visualizer.ui.pause();
+		time.set(Visualizer.ui.events[index].time);
+	});
 };
 
+var pp;
+
+Visualizer.ui.pause = function() {
+	if(Visualizer.ui.elements.playpauseButton.hasClass('visualizer-pause')) {
+		Visualizer.ui.elements.playpauseButton.click();
+	}
+}
 
 
 Visualizer.ui.visualAlert = function(s) {
@@ -300,4 +319,19 @@ Visualizer.ui.addOption = function(title, option) {
 	}
 
 	Visualizer.ui.elements.optionsListSection[title].append(optionElement);
+};
+
+// Events
+
+Visualizer.ui.addEvent = function(event) {
+	Visualizer.ui.events.push(event);
+
+	Visualizer.ui.elements.events.append(
+		$('<div>')
+			.attr('id', 'visualizer-event-' + Visualizer.ui.events.length)
+			.attr('class', 'visualizer-event')
+			.attr('title', event.tag)
+			.css('left', (event.time/Visualizer.ui.turnsInGamelog()*100) + '%')
+			.html('&nbsp;')
+	);
 };

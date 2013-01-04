@@ -1,13 +1,12 @@
 // this
 // The object that keeps track of the visualizer internal this states
-Visualizer.time = new Object() 
+Visualizer.time = {}; 
 
 Visualizer.time.t = 0;
 Visualizer.time.turn = 0;
 Visualizer.time.msPerTurn = 1000; // 1 sec / turn
 Visualizer.time.turns = 0;
 Visualizer.time.playing = false;
-Visualizer.time.events = new Array();
 
 Visualizer.time.total = function() {
 	return Visualizer.time.turn + Visualizer.time.t;
@@ -48,16 +47,6 @@ Visualizer.time.boundsCheck = function() {
 		Visualizer.time.t = 0;
 	}
 }
-
-// adds an event to the thislime, useful for games with rounds
-/*Visualizer.time.addEvent = function(this, tag) {
-	events.push({
-		this: this,
-		tag: tag,
-	});
-
-	Visualizer.time.updateUI();
-};*/
 
 Visualizer.time.invertPlaying = function() {
 	Visualizer.time.playing = !Visualizer.time.playing;

@@ -5,6 +5,7 @@ Visualizer.plugins["Galapagos"] = new Object();
 var plugin = Visualizer.plugins["Galapagos"];
 		
 plugin.name = "Galapagos";
+plugin.events = [];
 
 // Renderables for our main game objects
 plugin.renderableCreatures = undefined;
@@ -65,6 +66,13 @@ plugin.parse = function(gamelog) {
 			var plant = turn.Plants[p];
 
 			plugin.renderablePlants.addTurn(plant.id, turn.turnNumber, plant);
+		}
+
+		if(i%10 == 0) {
+			this.events.push({
+				time: parseInt(i),
+				tag: "fake round " + i,
+			});
 		}
 	}
 }

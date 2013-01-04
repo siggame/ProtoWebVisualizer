@@ -59,10 +59,10 @@ Visualizer.addOptions = function(title, options) {
 Visualizer.gamelogLoaded = function(gamelog) {
 	Visualizer.gamelog = gamelog;
 	
-	Visualizer.loadPlugin(gamelog.gameName);
-
 	Visualizer.ui.finishLoading(Visualizer.gamelog);
 	Visualizer.time.turns = Visualizer.gamelog.turns.length;
+
+	Visualizer.loadPlugin(gamelog.gameName);
 };
 
 Visualizer.loadPlugin = function(pluginName) {
@@ -87,8 +87,21 @@ Visualizer.loadPlugin = function(pluginName) {
 	// Load the textures for the plugin
 	Visualizer.renderer.addTextures(Visualizer.currentPlugin.textures, Visualizer.currentPlugin.name.toLowerCase());
 
+	// add the options of the plugin to the core
 	Visualizer.addOptions(Visualizer.currentPlugin.name, Visualizer.currentPlugin.options);
 
+	// initialize and parse the current gamelog
 	Visualizer.currentPlugin.initialize(Visualizer.gamelog, Visualizer.renderer);
 	Visualizer.currentPlugin.parse(Visualizer.gamelog);
+
+	// build the events in this gamelog
+	Visualizer.addEvents(Visualizer.currentPlugin.events);
+};
+
+Visualizer.addEvents = function(events) {
+	for(var i in events) {
+		var event = events[i];
+
+		Visualizer.ui.addEvent(event);
+	}
 }

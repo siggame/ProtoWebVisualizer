@@ -200,3 +200,30 @@ div#visualizer-speed-bar-container div#visualizer-speed-bar {
 button#visualizer-fullscreen {
 	float: right;
 }
+
+/*     END: Bottom Part */
+/* END: Control Bar */
+
+/* BEGIN: Events */
+
+#visualizer-events {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+div.visualizer-event {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1em;
+	height: 1.75em;
+	margin-left: -0.5em;
+	background: #fff;
+	border: 0;
+	cursor: pointer;
+}
+
+/* END: Events; */
