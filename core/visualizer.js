@@ -25,10 +25,15 @@ Visualizer.initialize = function() {
 
 Visualizer.mainLoop = function() {
 	var firstloop = true;
+	var lastTime = (new Date()).getTime();
+	var desiredFPS = 60;
 
 	// the 60 fps loop
 	(function (window) {
 		function gameLoop() {
+			// get the current time in ms
+			var dt = (new Date()).getTime() - lastTime;
+
 			if(Visualizer.currentPlugin && Visualizer.renderer.ready() && Visualizer.gamelog) {
 				if(firstloop) {
 					Visualizer.currentPlugin.initialDraw(Visualizer.renderer);
@@ -36,13 +41,15 @@ Visualizer.mainLoop = function() {
 					firstloop = false;
 				}
 				else {
-					Visualizer.time.tick(1000 /60);  // TODO: measure time elapsed
+					Visualizer.time.tick(dt);
 					Visualizer.ui.updateTime(Visualizer.time.total());
 					Visualizer.currentPlugin.draw(Visualizer.renderer, Visualizer.time);
 				}
 			}
+
+			lastTime += dt;
 		}
-		window.setInterval(gameLoop, 1000 / 60); // 60fps
+		window.setInterval(gameLoop, 1000 / desiredFPS); // 60fps
 	} (window));
 };
 

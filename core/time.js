@@ -19,12 +19,8 @@ Visualizer.time.tick = function(ms) {
 	// Update t with the this that passed
 	Visualizer.time.t += (ms / Visualizer.time.msPerTurn);
 
-	// Check to see if we need to advance the turn
-	if( Visualizer.time.t >= 1.0 ) {
-		// Should we do turns++, or add the number of turns over Visualizer.time.t? The first displays all turns, the later ensures playback never lags behind...
-		Visualizer.time.turn++;
-		Visualizer.time.t = 0;
-	}
+	Visualizer.time.turn += Math.floor(Visualizer.time.t);
+	Visualizer.time.t -= Math.floor(Visualizer.time.t);
 
 	Visualizer.time.boundsCheck();
 	
