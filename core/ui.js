@@ -5,6 +5,7 @@ Visualizer.ui = {};
 
 Visualizer.ui.elements = {};
 Visualizer.ui.events = [];
+var qqq;
 
 Visualizer.ui.initialize = function(time) {
 
@@ -21,7 +22,7 @@ Visualizer.ui.initialize = function(time) {
 		value: 0,
 		min: 0,
 		max: 1,
-		step: 0.001,
+		step: 0.01,
 		slide: function( event, ui ) {
 			time.set(ui.value);
 		}
@@ -333,5 +334,6 @@ Visualizer.ui.addEvent = function(event) {
 			.attr('title', event.tag)
 			.css('left', (event.time/Visualizer.ui.turnsInGamelog()*100) + '%')
 			.html('&nbsp;')
+			.tooltip()
 	);
 };

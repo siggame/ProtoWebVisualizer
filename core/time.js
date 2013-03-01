@@ -51,7 +51,7 @@ Visualizer.time.invertPlaying = function() {
 Visualizer.time.set = function(time) {
 	Visualizer.time.pause();
 	Visualizer.time.turn = Math.floor(time);
-	Visualizer.time.t =  - Visualizer.time.turn;
+	Visualizer.time.t = time - Visualizer.time.turn;
 	Visualizer.time.boundsCheck();
 }
 
